@@ -1,0 +1,48 @@
+public interface Car {
+    void start();
+}
+Agora vamos criar algumas classes que implementam esta interface.
+
+
+public class SportsCar implements Car {
+    public void start() {
+        System.out.println("Starting sports car");
+    }
+}
+
+public class SUV implements Car {
+    public void start() {
+        System.out.println("Starting SUV");
+    }
+}
+Agora, vamos criar uma classe Factory para criar os objetos.
+
+typescript
+
+public class CarFactory {
+    public Car createCar(String carType) {
+        if (carType.equalsIgnoreCase("sports")) {
+            return new SportsCar();
+        } else if (carType.equalsIgnoreCase("suv")) {
+            return new SUV();
+        } else {
+            throw new IllegalArgumentException("Invalid car type");
+        }
+    }
+}
+A classe CarFactory tem um método createCar() que recebe uma string que representa o tipo de carro que queremos criar. O método verifica qual é o tipo de carro e cria um objeto da classe correspondente. Se o tipo de carro não for reconhecido, uma exceção é lançada.
+
+Agora podemos usar a classe CarFactory para criar objetos sem saber qual classe concreta está sendo usada.
+
+
+public class Main {
+    public static void main(String[] args) {
+        CarFactory carFactory = new CarFactory();
+
+        Car sportsCar = carFactory.createCar("sports");
+        sportsCar.start();
+
+        Car suv = carFactory.createCar("suv");
+        suv.start();
+    }
+}
